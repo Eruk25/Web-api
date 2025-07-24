@@ -15,4 +15,5 @@ public class AppDbContext : DbContext
     public DbSet<Provider> Providers { get; set; }
     public DbSet<Cart> Carts { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 }
