@@ -7,7 +7,7 @@ namespace APILern.Application.Interfaces
     {
         Task<IEnumerable<OrderResponseDto>> GetAllOrdersAsync();
         Task<OrderResponseDto> GetOrderByIdAsync(int id);
-        Task CreateOrderAsync(Order order);
+        Task<OrderResponseDto> CreateOrderAsync(int CartId);
         Task<bool> CancelOrderAsync(int id);
     }
 }
