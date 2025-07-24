@@ -11,9 +11,11 @@ namespace APILern.Application.Services
 {
     public class UserService : IUserService
     {
+        private readonly ICartService _cartService;
         private readonly IUserRepository _repository;
-        public UserService(IUserRepository repository)
+        public UserService(ICartService cartService, IUserRepository repository)
         {
+            _cartService = cartService;
             _repository = repository;
         }
         public async Task RegisterAsync(RegisterUserDto dto)
@@ -33,6 +35,7 @@ namespace APILern.Application.Services
                 Role = EnumUserRole.Client
             };
             await _repository.AddAsync(user);
+            await _cartService.CreateCartAsync(user.Id);
         }
 
         public async Task<User?> ValidateCredentialsAsync(LoginUserDto dto)

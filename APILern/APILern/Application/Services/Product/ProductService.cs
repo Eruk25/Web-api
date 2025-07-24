@@ -1,3 +1,4 @@
+using APILern.Domain.Entities;
 using APILern.Domain.Interface;
 
 namespace APILern.Application.Services;
@@ -30,6 +31,7 @@ public class ProductService : IProductService
         var dto = new ProductResponseDto
         {
             Title = product.Title,
+            Description = product.Description,
             Price = product.Price,
             ProviderName = product.Provider?.Name ?? "-",
         };
@@ -38,7 +40,18 @@ public class ProductService : IProductService
 
     public async Task<int> AddAsync(AddProductDto dto)
     {
-        throw new NotImplementedException();
+        var product = new Product
+        {
+            Title = dto.Title,
+            ImageUrl = dto.ImageUrl,
+            Description = dto.Description,
+            Price = dto.Price,
+            Quantity = dto.Quantity,
+            ProviderId = dto.ProviderId,
+        };
+
+        await _repository.AddAsync(product);
+        return product.Id;
     }
 
     public async Task<bool> DeleteAsync(int id)
