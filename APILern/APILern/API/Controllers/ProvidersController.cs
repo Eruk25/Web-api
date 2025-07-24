@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APILern.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ProvidersController : ControllerBase
 {
     private readonly IProviderRepository _repository;

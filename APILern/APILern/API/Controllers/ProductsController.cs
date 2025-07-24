@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APILern.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ProductsController : ControllerBase
 {
     private readonly IProductRepository _repository;
@@ -34,19 +34,9 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> AddProductAsync([FromBody] AddProductDto productDto)
     {
-        var product = new Product
-        {
-            Title = productDto.Title,
-            ImageUrl = productDto.ImageUrl,
-            Description = productDto.Description,
-            Price = productDto.Price,
-            Quantity = productDto.Quantity,
-            ProviderId = productDto.ProviderId,
+        var createId = await _productService.AddAsync(productDto);
 
-        };
-
-        var createdProduct = await _repository.AddAsync(product);
-        return CreatedAtRoute(routeName: "GetProductById", routeValues: new { id = createdProduct.Id }, value: createdProduct);
+        return CreatedAtRoute(routeName: "GetProductById", routeValues: new { id = createId }, new { id = createId });
     }
 
     [HttpPut("{id}")]
