@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APILern.Application.DTO.AccountUser;
+using APILern.Application.DTO.User;
 using APILern.Domain.Entities;
 
 namespace APILern.Application.Interfaces
@@ -11,5 +12,6 @@ namespace APILern.Application.Interfaces
     {
         Task RegisterAsync(RegisterUserDto dto);
         Task<User?> ValidateCredentialsAsync(LoginUserDto dto);
+        Task<UserProfileDto> GetUserProfileAsync(int UserId);
     }
 }

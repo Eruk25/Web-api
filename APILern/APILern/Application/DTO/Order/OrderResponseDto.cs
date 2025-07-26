@@ -11,7 +11,6 @@ namespace APILern.Application.DTO.Order
     {
         public int OrderNumber { get; set; }
         public List<OrderItemDto> OrderItems { get; set; }
-        public int Quantity { get; set; }
         public EnumPaymentStatus Status { get; set; }
     }
 }

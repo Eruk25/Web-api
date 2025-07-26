@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace APILern.Domain.Entities;
 
 public class Cart

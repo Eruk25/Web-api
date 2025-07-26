@@ -1,5 +1,4 @@
-using System.Security.Cryptography;
-using APILern.Application.DTO.Cart;
+using APILern.Application.DTO;
 using APILern.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
