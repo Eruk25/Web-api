@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APILern.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
