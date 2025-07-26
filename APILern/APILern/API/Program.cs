@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using APILern.Application.Interfaces;
+using APILern.Application.Service.Inventory;
 using APILern.Application.Services;
 using APILern.Domain.Interface;
 using APILern.Infrastructure.Persistance.Context;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(option =>

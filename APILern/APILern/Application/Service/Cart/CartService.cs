@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using APILern.Application.DTO.Cart;
+using APILern.Application.DTO;
 using APILern.Application.DTO.CatItem;
 using APILern.Application.Interfaces;
 using APILern.Domain.Entities;

@@ -17,4 +17,6 @@ public class User
     public EnumUserRole Role { get; set; }
     [Required]
     public string NumberPhone { get; set; }
+    public List<Order> Orders { get; set; } = new();
+
 }

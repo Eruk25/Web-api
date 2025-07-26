@@ -20,6 +20,15 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public async Task<User> GetByIdAsync(int id)
+    {
+        return await _dbContext.Users
+        .AsNoTracking()
+        .Include(u => u.Orders)
+        .ThenInclude(o => o.OrderItems)
+        .FirstOrDefaultAsync(u => u.Id == id);
+    }
+
     public async Task<User?> GetByUserNameAsync(string userName)
     {
         return await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == userName);

@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APILern.Application.DTO;
 using APILern.Application.DTO.AccountUser;
+using APILern.Application.DTO.Order;
+using APILern.Application.DTO.User;
 using APILern.Application.Interfaces;
 using APILern.Domain.Entities;
 using APILern.Domain.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APILern.Application.Services
 {
@@ -18,6 +22,31 @@ namespace APILern.Application.Services
             _cartService = cartService;
             _repository = repository;
         }
+
+        public async Task<UserProfileDto> GetUserProfileAsync(int UserId)
+        {
+            var user = await _repository.GetByIdAsync(UserId);
+            if (user is null) return null;
+            return new UserProfileDto
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                NumberPhone = user.NumberPhone,
+                Role = user.Role,
+                Orders = user.Orders.Select(o => new OrderResponseDto
+                {
+                    OrderNumber = o.Id,
+                    OrderItems = o.OrderItems.Select(oi => new OrderItemDto
+                    {
+                        ProductId = oi.ProductId,
+                        Quantity = oi.Quantity
+                    }).ToList(),
+                    Status = o.Status
+                }).ToList(),
+            };
+        }
+
         public async Task RegisterAsync(RegisterUserDto dto)
         {
             var existing = await _repository.GetByUserNameAsync(dto.UserName);
@@ -46,5 +75,6 @@ namespace APILern.Application.Services
             var isValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
             return isValid ? user : null;
         }
+
     }
 }

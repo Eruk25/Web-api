@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using APILern.Application.DTO.CatItem;
 using APILern.Domain.Entities;
 
-namespace APILern.Application.DTO.Cart
+namespace APILern.Application.DTO
 {
     public class CartResponseAdmin
     {
