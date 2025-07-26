@@ -11,11 +11,17 @@ namespace APILern.Application.Services
     {
         private readonly ICartRepository _cartRepository;
         private readonly IOrderRepository _orderRepository;
-
-        public OrderService(ICartRepository cartRepository, IOrderRepository orderRepository)
+        private readonly IProductRepository _productRepository;
+        private readonly IInventoryService _inventoryService;
+        public OrderService(ICartRepository cartRepository,
+        IOrderRepository orderRepository,
+        IProductRepository productRepository,
+        IInventoryService inventoryService)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
+            _productRepository = productRepository;
+            _inventoryService = inventoryService;
         }
 
         public async Task<bool> CancelOrderAsync(int id)
@@ -52,6 +58,7 @@ namespace APILern.Application.Services
                 }).ToList(),
                 Status = order.Status
             };
+            await _inventoryService.ReserveProductsAsync(dto.OrderItems);
             await _orderRepository.AddAsync(order);
             await _cartRepository.DeleteAllAsync(CartId);
             return dto;

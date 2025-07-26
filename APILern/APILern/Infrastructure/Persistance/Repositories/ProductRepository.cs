@@ -57,4 +57,16 @@ public class ProductRepository : IProductRepository
             await _dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<IEnumerable<Product?>> GetByIdsAsync(IEnumerable<int> ids)
+    {
+        var products = await _dbContext.Products.Where(p => ids.Contains(p.Id)).ToListAsync();
+        return products;
+    }
+
+    public async Task UpdateRangeAsync(IEnumerable<Product> products)
+    {
+        _dbContext.UpdateRange(products);
+        await _dbContext.SaveChangesAsync();
+    }
 }
