@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APILern")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01f4f722d4b1070a15809975cd9fa388549c7cf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("APILern")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APILern")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
