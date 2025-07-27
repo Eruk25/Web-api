@@ -10,7 +10,7 @@ namespace APILern.Application.DTO.Order
     public class OrderResponseDto
     {
         public int OrderNumber { get; set; }
-        public List<OrderItemDto> OrderItems { get; set; }
+        public List<OrderItemDto> OrderItems { get; set; } = new();
         public EnumPaymentStatus Status { get; set; }
     }
 }

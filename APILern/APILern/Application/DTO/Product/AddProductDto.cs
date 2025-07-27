@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 public class AddProductDto
 {
     [Required]
-    public string Title { get; set; }
+    public required string Title { get; set; }
     [Required]
-    public string ImageUrl { get; set; }
+    public required string ImageUrl { get; set; }
     [Required]
-    public string Description { get; set; }
+    public required string Description { get; set; }
     [Required]
     [Range(0.01, double.MaxValue, ErrorMessage = "Цена должна быть больше нуля.")]
     public decimal Price { get; set; }

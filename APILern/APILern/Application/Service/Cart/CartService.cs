@@ -21,7 +21,7 @@ namespace APILern.Application.Services
         public async Task ClearCartAsync(int cartId)
         {
             var cart = await _repository.GetCartByIdAsync(cartId);
-            if (cart is null || cart.Items.Count == 0) return;
+            if (cart is null || cart.Items?.Count == 0) return;
 
             await _repository.DeleteAllAsync(cartId);
         }
@@ -43,7 +43,7 @@ namespace APILern.Application.Services
             {
                 Id = cart.Id,
                 ClientId = cart.ClientId,
-                Items = cart.Items.Select(i => new CartItemDto
+                Items = cart.Items!.Select(i => new CartItemDto
                 {
                     ProductId = i.ProductId,
                     Quantity = i.Quantity
@@ -55,7 +55,7 @@ namespace APILern.Application.Services
         public async Task RemoveItemAsync(int cartId, int productId)
         {
             var cart = await _repository.GetCartByIdAsync(cartId);
-            if (cart is null || cart.Items.Count == 0) return;
+            if (cart is null || cart.Items?.Count == 0) return;
 
             await _repository.DeleteAsync(productId);
         }
@@ -63,7 +63,7 @@ namespace APILern.Application.Services
         public async Task UpdateQuantityAsync(int cartId, int productId, int quantity)
         {
             var cart = await _repository.GetCartByIdAsync(cartId);
-            if (cart is null || cart.Items.Count == 0) return;
+            if (cart is null || cart.Items?.Count == 0) return;
 
             await _repository.UpdateQuantityAsync(cartId, productId, quantity);
         }

@@ -23,7 +23,7 @@ namespace APILern.Application.Services
             _repository = repository;
         }
 
-        public async Task<UserProfileDto> GetUserProfileAsync(int UserId)
+        public async Task<UserProfileDto?> GetUserProfileAsync(int UserId)
         {
             var user = await _repository.GetByIdAsync(UserId);
             if (user is null) return null;

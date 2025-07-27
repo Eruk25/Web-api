@@ -20,10 +20,9 @@ namespace APILern.Application.Service.Inventory
         {
             var productIds = items.Select(i => i.ProductId).Distinct();
             var products = await _productRepository.GetByIdsAsync(productIds);
-
             foreach (var item in items)
             {
-                var product = products.FirstOrDefault(p => p.Id == item.ProductId);
+                var product = products.FirstOrDefault(p => p?.Id == item.ProductId);
                 if (product == null)
                     throw new Exception($"Товар не найден: {item.ProductId}");
 
@@ -32,7 +31,7 @@ namespace APILern.Application.Service.Inventory
                 product.Quantity -= item.Quantity;
             }
 
-            await _productRepository.UpdateRangeAsync(products);
+            await _productRepository.UpdateRangeAsync(products!);
         }
     }
 }

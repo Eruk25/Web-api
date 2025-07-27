@@ -11,6 +11,6 @@ namespace APILern.Application.DTO
     {
         public int Id { get; set; }
         public int ClientId { get; set; }
-        public List<CartItemDto> Items { get; set; }
+        public List<CartItemDto> Items { get; set; } = new();
     }
 }

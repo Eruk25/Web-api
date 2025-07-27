@@ -33,7 +33,7 @@ namespace APILern.Application.Services
             return true;
         }
 
-        public async Task<OrderResponseDto> CreateOrderAsync(int CartId)
+        public async Task<OrderResponseDto?> CreateOrderAsync(int CartId)
         {
             var cart = await _cartRepository.GetCartByIdAsync(CartId);
             if (cart is null || cart.Items.Count == 0) return null;
@@ -42,7 +42,7 @@ namespace APILern.Application.Services
                 UserId = cart.ClientId,
                 PaymentDate = DateTime.UtcNow,
                 Status = EnumPaymentStatus.Pending,
-                OrderItems = cart.Items.Select(item => new OrderItem
+                OrderItems = cart.Items!.Select(item => new OrderItem
                 {
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
@@ -70,7 +70,7 @@ namespace APILern.Application.Services
 
             return orders.Select(order => new OrderResponseDto
             {
-                OrderNumber = order.Id,
+                OrderNumber = order!.Id,
                 OrderItems = order.OrderItems.Select(oi => new OrderItemDto
                 {
                     ProductId = oi.ProductId,
@@ -80,7 +80,7 @@ namespace APILern.Application.Services
             }).ToList();
         }
 
-        public async Task<OrderResponseDto> GetOrderByIdAsync(int id)
+        public async Task<OrderResponseDto?> GetOrderByIdAsync(int id)
         {
             var order = await _orderRepository.GetByIdAsync(id);
             if (order is null) return null;

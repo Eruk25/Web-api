@@ -12,6 +12,6 @@ namespace APILern.Application.Interfaces
     {
         Task RegisterAsync(RegisterUserDto dto);
         Task<User?> ValidateCredentialsAsync(LoginUserDto dto);
-        Task<UserProfileDto> GetUserProfileAsync(int UserId);
+        Task<UserProfileDto?> GetUserProfileAsync(int UserId);
     }
 }

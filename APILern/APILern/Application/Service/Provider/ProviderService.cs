@@ -17,9 +17,11 @@ namespace APILern.Application.Services
         public async Task<IEnumerable<ProviderResponseDto>> GetAllAsync()
         {
             var providers = await _repository.GetAllAsync();
+            if (providers is null)
+                return Enumerable.Empty<ProviderResponseDto>();
             return providers.Select(p => new ProviderResponseDto
             {
-                Id = p.Id,
+                Id = p!.Id,
                 Name = p.Name,
                 Products = p.Products.Select(prod => new ProductShortDto
                 {
@@ -30,9 +32,10 @@ namespace APILern.Application.Services
             }).ToList();
         }
 
-        public async Task<ProviderResponseDto> GetByIdAsync(int id)
+        public async Task<ProviderResponseDto?> GetByIdAsync(int id)
         {
             var provider = await _repository.GetByIdAsync(id);
+            if (provider is null) return null;
             var dto = new ProviderResponseDto
             {
                 Id = provider.Id,

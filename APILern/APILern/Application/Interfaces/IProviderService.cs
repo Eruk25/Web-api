@@ -9,7 +9,7 @@ namespace APILern.Application.Interfaces
     public interface IProviderService
     {
         Task<IEnumerable<ProviderResponseDto>> GetAllAsync();
-        Task<ProviderResponseDto> GetByIdAsync(int id);
+        Task<ProviderResponseDto?> GetByIdAsync(int id);
         Task<int> AddAsync(CreateProviderDto dto);
         Task<bool> DeleteAsync(int id);
         Task<bool> UpdateAsync(int id, UpdateProviderDto dto);

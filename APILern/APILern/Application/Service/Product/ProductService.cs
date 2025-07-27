@@ -16,15 +16,15 @@ public class ProductService : IProductService
         var products = await _repository.GetAllAsync();
         return products.Select(p => new ProductResponseDto
         {
-            Title = p.Title,
+            Title = p!.Title,
             Description = p.Description,
             Quantity = p.Quantity,
             Price = p.Price,
-            ProviderName = p.Provider.Name
+            ProviderName = p.Provider!.Name
         }).ToList();
     }
 
-    public async Task<ProductResponseDto> GetByIdAsync(int id)
+    public async Task<ProductResponseDto?> GetByIdAsync(int id)
     {
         var product = await _repository.GetByIdAsync(id);
         if (product == null) return null;
@@ -63,7 +63,7 @@ public class ProductService : IProductService
         return true;
     }
 
-    public async Task<ProductResponseDto> UpdateAsync(int id, UpdateProductDto dto)
+    public async Task<ProductResponseDto?> UpdateAsync(int id, UpdateProductDto dto)
     {
         var product = await _repository.GetByIdAsync(id);
         if (product is null) return null;

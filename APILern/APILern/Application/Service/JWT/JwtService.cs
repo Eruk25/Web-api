@@ -28,8 +28,10 @@ namespace APILern.Application.Services
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
+            var keyString = _config["Jwt:Key"]
+                ?? throw new InvalidOperationException("Jwt ключ не найден в конфигурации");
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                Encoding.UTF8.GetBytes(keyString));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

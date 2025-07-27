@@ -10,5 +10,5 @@ public class Order
     public User? User { get; set; }
     public DateTime PaymentDate { get; set; }
     public EnumPaymentStatus Status { get; set; }
-    public List<OrderItem> OrderItems { get; set; }
+    public List<OrderItem> OrderItems { get; set; } = new();
 }
