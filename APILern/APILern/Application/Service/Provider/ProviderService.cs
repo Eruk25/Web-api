@@ -1,4 +1,3 @@
-using System.Net.WebSockets;
 using APILern.Application.DTO;
 using APILern.Application.Interfaces;
 using APILern.Domain.Entities;

@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using APILern.Application.Interfaces;
+using APILern.Application.Service;
 using APILern.Application.Service.Inventory;
 using APILern.Application.Services;
 using APILern.Domain.Interface;
@@ -31,6 +32,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddSwaggerGen(c =>
 {

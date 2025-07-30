@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using APILern.Application.DTO.AccountUser;
 using APILern.Application.Interfaces;
 using APILern.Application.Services;

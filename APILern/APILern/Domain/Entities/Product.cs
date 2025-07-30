@@ -17,5 +17,4 @@ public class Product
     [Required]
     public int ProviderId { get; set; }
     public Provider? Provider { get; set; }
-
 }

@@ -10,12 +10,10 @@ namespace APILern.Controller;
 [Route("[controller]")]
 public class ProvidersController : ControllerBase
 {
-    private readonly IProviderRepository _repository;
     private readonly IProviderService _providerService;
 
-    public ProvidersController(IProviderRepository repository, IProviderService providerService)
+    public ProvidersController(IProviderService providerService)
     {
-        _repository = repository;
         _providerService = providerService;
     }
 
@@ -51,7 +49,7 @@ public class ProvidersController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProviderAsync(int id)
     {
-        await _repository.DeleteAsync(id);
+        await _providerService.DeleteAsync(id);
 
         return NoContent();
     }

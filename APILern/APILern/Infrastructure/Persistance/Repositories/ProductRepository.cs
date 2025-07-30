@@ -51,11 +51,10 @@ public class ProductRepository : IProductRepository
     public async Task DeleteAsync(int id)
     {
         var product = await _dbContext.Products.FindAsync(id);
-        if (product != null)
-        {
-            _dbContext.Products.Remove(product);
-            await _dbContext.SaveChangesAsync();
-        }
+        if (product is null) return;
+
+        _dbContext.Products.Remove(product);
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Product?>> GetByIdsAsync(IEnumerable<int> ids)

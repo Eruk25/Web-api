@@ -4,6 +4,7 @@ using APILern.Infrastructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APILern.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250730084903_CreateProductCategories")]
+    partial class CreateProductCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,6 +127,9 @@ namespace APILern.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -135,7 +141,7 @@ namespace APILern.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProductCategoryId")
+                    b.Property<int?>("ProductCategoriesId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProviderId")
@@ -150,14 +156,14 @@ namespace APILern.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductCategoryId");
+                    b.HasIndex("ProductCategoriesId");
 
                     b.HasIndex("ProviderId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("APILern.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("APILern.Domain.Entities.ProductCategories", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,15 +307,17 @@ namespace APILern.Migrations
 
             modelBuilder.Entity("APILern.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("APILern.Domain.Entities.ProductCategory", null)
+                    b.HasOne("APILern.Domain.Entities.ProductCategories", "ProductCategories")
                         .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId");
+                        .HasForeignKey("ProductCategoriesId");
 
                     b.HasOne("APILern.Domain.Entities.Provider", "Provider")
                         .WithMany("Products")
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ProductCategories");
 
                     b.Navigation("Provider");
                 });
@@ -324,7 +332,7 @@ namespace APILern.Migrations
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("APILern.Domain.Entities.ProductCategory", b =>
+            modelBuilder.Entity("APILern.Domain.Entities.ProductCategories", b =>
                 {
                     b.Navigation("Products");
                 });

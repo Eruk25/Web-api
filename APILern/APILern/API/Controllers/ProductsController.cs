@@ -8,12 +8,10 @@ namespace APILern.Controller;
 [Route("[controller]")]
 public class ProductsController : ControllerBase
 {
-    private readonly IProductRepository _repository;
     private readonly IProductService _productService;
 
-    public ProductsController(IProductRepository repository, IProductService productService)
+    public ProductsController(IProductService productService)
     {
-        _repository = repository;
         _productService = productService;
     }
 
