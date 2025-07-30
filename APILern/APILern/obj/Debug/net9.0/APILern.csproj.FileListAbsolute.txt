@@ -176,3 +176,7 @@ C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\obj
 C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\API\Config\appsettings.json
 C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\BCrypt.Net-Next.dll
+C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\legen\OneDrive\Рабочий стол\Code\Web-api\APILern\APILern\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
