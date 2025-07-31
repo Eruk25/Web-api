@@ -13,10 +13,11 @@ namespace APILern.Infrastructure.Persistance.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task CreateAsync(ProductCategory category)
+        public async Task<ProductCategory> CreateAsync(ProductCategory category)
         {
-            await _dbContext.ProductCategories.AddAsync(category);
+            var result = await _dbContext.ProductCategories.AddAsync(category);
             await _dbContext.SaveChangesAsync();
+            return result.Entity;
         }
 
         public async Task DeleteAsync(int id)
@@ -36,7 +37,9 @@ namespace APILern.Infrastructure.Persistance.Repositories
 
         public async Task<ProductCategory> GetByIdAsync(int id)
         {
-            var category = await _dbContext.ProductCategories.FindAsync(id);
+            var category = await _dbContext.ProductCategories
+                .Include(pc => pc.Products)
+                .FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
     }

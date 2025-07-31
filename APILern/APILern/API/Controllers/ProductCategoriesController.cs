@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using APILern.Application.DTO;
 using APILern.Application.Interfaces;
 using APILern.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,19 +16,27 @@ namespace APILern.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductCategory>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ProductCategoryResponseDto>>> GetAllAsync()
         {
             var categories = await _productCategoryService.GetAllCategoriesAsync();
 
             return Ok(categories);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductCategory>> GetByIdAsync(int id)
+        [HttpGet("{id}", Name = "GetByIdAsync")]
+        public async Task<ActionResult<ProductCategoryResponseDto>> GetByIdAsync(int id)
         {
             var category = await _productCategoryService.GetCategoryById(id);
 
             return category is null ? NotFound() : Ok(category);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ProductCategoryResponseDto>> AddAsync([FromBody] AddProductCategoryDto categoryDto)
+        {
+            var newCategory = await _productCategoryService.AddCategory(categoryDto);
+
+            return CreatedAtRoute("GetByIdAsync", new { id = newCategory.Id }, new { id = newCategory.Id });
         }
     }
 }

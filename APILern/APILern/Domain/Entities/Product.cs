@@ -17,4 +17,6 @@ public class Product
     [Required]
     public int ProviderId { get; set; }
     public Provider? Provider { get; set; }
+    public int ProductCategoryId { get; set; }
+    public ProductCategory? ProductCategory { get; set; }
 }

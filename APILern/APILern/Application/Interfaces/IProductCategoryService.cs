@@ -1,12 +1,12 @@
-using APILern.Domain.Entities;
+using APILern.Application.DTO;
 
 namespace APILern.Application.Interfaces
 {
     public interface IProductCategoryService
     {
-        Task<IEnumerable<ProductCategory>?> GetAllCategoriesAsync();
-        Task<ProductCategory?> GetCategoryById(int id);
-        Task AddCategory(ProductCategory category);
+        Task<IEnumerable<ProductCategoryResponseDto>?> GetAllCategoriesAsync();
+        Task<ProductCategoryResponseDto?> GetCategoryById(int id);
+        Task<ProductCategoryResponseDto> AddCategory(AddProductCategoryDto categoryDto);
         Task DeleteCategory(int id);
     }
 }

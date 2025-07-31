@@ -20,7 +20,8 @@ public class ProductService : IProductService
             Description = p.Description,
             Quantity = p.Quantity,
             Price = p.Price,
-            ProviderName = p.Provider!.Name
+            ProviderName = p.Provider?.Name ?? "-",
+            Category = p.ProductCategory?.Title ?? "Без категории"
         }).ToList();
     }
 
@@ -34,6 +35,7 @@ public class ProductService : IProductService
             Description = product.Description,
             Price = product.Price,
             ProviderName = product.Provider?.Name ?? "-",
+            Category = product.ProductCategory?.Title ?? "Без категории"
         };
         return dto;
     }
@@ -48,6 +50,7 @@ public class ProductService : IProductService
             Price = dto.Price,
             Quantity = dto.Quantity,
             ProviderId = dto.ProviderId,
+            ProductCategoryId = dto.CategoryId,
         };
 
         await _repository.AddAsync(product);
@@ -73,6 +76,7 @@ public class ProductService : IProductService
         product.Description = dto.Description;
         product.Price = dto.Price;
         product.Quantity = dto.Quantity;
+        product.ProductCategoryId = dto.CategoryId;
         await _repository.UpdateAsync(product);
         return new ProductResponseDto
         {
@@ -80,7 +84,8 @@ public class ProductService : IProductService
             Description = product.Description,
             Quantity = product.Quantity,
             Price = product.Price,
-            ProviderName = product.Provider?.Name ?? "-"
+            ProviderName = product.Provider?.Name ?? "-",
+            Category = product.ProductCategory?.Title ?? "Без категории"
         };
     }
 }

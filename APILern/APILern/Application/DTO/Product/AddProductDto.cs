@@ -16,4 +16,6 @@ public class AddProductDto
     public int Quantity { get; set; }
     [Required(ErrorMessage = "Укажите ID поставщика.")]
     public int ProviderId { get; set; }
+    [Required]
+    public int CategoryId { get; set; }
 }

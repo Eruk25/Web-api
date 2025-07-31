@@ -6,7 +6,7 @@ namespace APILern.Domain.Interface
     {
         Task<IEnumerable<ProductCategory>> GetAlAsync();
         Task<ProductCategory> GetByIdAsync(int id);
-        Task CreateAsync(ProductCategory category);
+        Task<ProductCategory> CreateAsync(ProductCategory category);
         Task DeleteAsync(int id);
     }
 }
