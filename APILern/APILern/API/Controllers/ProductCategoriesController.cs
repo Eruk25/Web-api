@@ -1,6 +1,5 @@
 using APILern.Application.DTO;
 using APILern.Application.Interfaces;
-using APILern.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APILern.API.Controllers
