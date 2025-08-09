@@ -16,6 +16,7 @@ public class ProductService : IProductService
         var products = await _repository.GetAllAsync();
         return products.Select(p => new ProductResponseDto
         {
+            Id = p!.Id,
             Title = p!.Title,
             Description = p.Description,
             Quantity = p.Quantity,
@@ -31,6 +32,7 @@ public class ProductService : IProductService
         if (product == null) return null;
         var dto = new ProductResponseDto
         {
+            Id = product.Id,
             Title = product.Title,
             Description = product.Description,
             Price = product.Price,
