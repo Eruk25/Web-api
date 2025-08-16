@@ -1,13 +1,15 @@
 import { Category } from "@/app/types";
-import { CategoryCard } from "./CategoryCard";
+import { CategoryCard } from "../categories/CategoryCard";
 
 export function CategorySection({categories}: {categories: Category[]}){
     return(
-        <section>
-            <h2>Категории товаров</h2>
-            {categories.map((category) => (
+        <section className="px-4 py-6 bg-white m-4 rounded-xl">
+            <h1 className="text-center mb-4 bg-gradient-to-r from-[#667EEA] to-[#764BA2] bg-clip-text text-transparent font-bold">Категории товаров</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+                {categories.map((category) => (
                 <CategoryCard key={category.id} category={category}/>
             ))}
+            </div>
         </section>
     )
 }

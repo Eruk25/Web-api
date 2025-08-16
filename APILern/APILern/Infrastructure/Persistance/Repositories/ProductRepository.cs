@@ -1,3 +1,6 @@
+using APILern.Application.Service.Filters;
+using APILern.Application.Service.Pagination;
+using APILern.Application.Service.Sort;
 using APILern.Domain.Entities;
 using APILern.Domain.Interface;
 using APILern.Infrastructure.Persistance.Context;
@@ -14,14 +17,23 @@ public class ProductRepository : IProductRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Product?>> GetAllAsync()
+    public async Task<PagedResult<Product>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams)
     {
         return await _dbContext.Products
         .Include(p => p.Provider)
         .Include(p => p.ProductCategory)
-        .ToListAsync();
+        .Sort(productSort)
+        .ToPagedAsync(pageParams);
     }
 
+    public async Task<IEnumerable<Product?>> GetProductByParamsIdAsync(ProductSearchCriteria productSearch)
+    {
+        return await _dbContext.Products
+        .Include(p => p.Provider)
+        .Include(p => p.ProductCategory)
+        .Filter(productSearch)
+        .ToListAsync();
+    }
     public async Task<Product?> GetByIdAsync(int id)
     {
         return await _dbContext.Products
@@ -74,4 +86,5 @@ public class ProductRepository : IProductRepository
         _dbContext.UpdateRange(products);
         await _dbContext.SaveChangesAsync();
     }
+
 }

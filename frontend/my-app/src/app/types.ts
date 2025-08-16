@@ -11,3 +11,8 @@ export interface Category{
   title: string;
   imagePath: string;
 }
+
+export interface Provider{
+  id: number;
+  name: string;
+}

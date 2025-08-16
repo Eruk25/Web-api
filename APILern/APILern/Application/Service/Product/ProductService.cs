@@ -1,3 +1,6 @@
+using APILern.Application.Service.Filters;
+using APILern.Application.Service.Pagination;
+using APILern.Application.Service.Sort;
 using APILern.Domain.Entities;
 using APILern.Domain.Interface;
 
@@ -11,9 +14,26 @@ public class ProductService : IProductService
     {
         _repository = repository;
     }
-    public async Task<IEnumerable<ProductResponseDto>> GetAllAsync()
+    public async Task<PagedResult<ProductResponseDto>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams)
     {
-        var products = await _repository.GetAllAsync();
+        var pagedResult = await _repository.GetAllAsync(productSort, pageParams);
+
+        var dtoItems = pagedResult.Items.Select(p => new ProductResponseDto
+        {
+            Id = p!.Id,
+            Title = p!.Title,
+            Description = p.Description,
+            Quantity = p.Quantity,
+            Price = p.Price,
+            ProviderName = p.Provider?.Name ?? "-",
+            Category = p.ProductCategory?.Title ?? "Без категории"
+        }).ToList();
+
+        return new PagedResult<ProductResponseDto>(dtoItems, pagedResult.TotalCount);
+    }
+    public async Task<IEnumerable<ProductResponseDto?>> SearchProductsAsync(ProductSearchCriteria productSearch)
+    {
+        var products = await _repository.GetProductByParamsIdAsync(productSearch);
         return products.Select(p => new ProductResponseDto
         {
             Id = p!.Id,
@@ -25,7 +45,6 @@ public class ProductService : IProductService
             Category = p.ProductCategory?.Title ?? "Без категории"
         }).ToList();
     }
-
     public async Task<ProductResponseDto?> GetByIdAsync(int id)
     {
         var product = await _repository.GetByIdAsync(id);

@@ -1,3 +1,6 @@
+using APILern.Application.Service.Filters;
+using APILern.Application.Service.Pagination;
+using APILern.Application.Service.Sort;
 using APILern.Domain.Entities;
 using APILern.Domain.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -5,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APILern.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
@@ -16,9 +19,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
+    public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync([FromQuery] ProductSortCriteria productSort, [FromQuery] PageParams pageParams)
     {
-        var products = await _productService.GetAllAsync();
+        var products = await _productService.GetAllAsync(productSort, pageParams);
         return Ok(products);
     }
 
@@ -27,6 +30,12 @@ public class ProductsController : ControllerBase
     {
         var product = await _productService.GetByIdAsync(id);
         return product is null ? NotFound() : Ok(product);
+    }
+    [HttpPost("search")]
+    public async Task<ActionResult<IEnumerable<Product>>> SearchProductAsync([FromBody] ProductSearchCriteria productSearch)
+    {
+        var product = await _productService.SearchProductsAsync(productSearch);
+        return Ok(product);
     }
 
     [HttpPost]
