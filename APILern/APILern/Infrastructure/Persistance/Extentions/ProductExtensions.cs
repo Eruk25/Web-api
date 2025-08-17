@@ -58,7 +58,7 @@ namespace APILern.Infrastructure
         {
             var predicate = PredicateBuilder.New<Product>(true);
             if (!string.IsNullOrWhiteSpace(productSearch.Title))
-                predicate = predicate.And(p => p.ProductCategory.Title == productSearch.Category.Title);
+                predicate = predicate.And(p => p.Title.Contains(productSearch.Title));
 
             if (productSearch.Provider is not null)
                 predicate = predicate.And(p => p.Provider.Name == productSearch.Provider.ProviderName);
@@ -75,8 +75,6 @@ namespace APILern.Infrastructure
                 }
             }
 
-            if (productSearch.Title is not null)
-                predicate = predicate.And(p => p.Title.Contains(productSearch.Title));
 
             return predicate;
         }

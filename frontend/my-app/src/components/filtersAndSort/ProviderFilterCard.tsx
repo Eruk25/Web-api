@@ -15,7 +15,6 @@ export function ProviderFilterCard(){
             <h2 className="m-2">Бренды</h2>
             <div className="m-2">
                 <select className="border-1 border-[#E0E0E0] bg-[#EFEFEF]">
-                    <option value="">Все бренды</option>
                     {providers.map((provider) => (
                         <option value={provider.name} key={provider.id}>{provider.name}</option>
                     ))}
