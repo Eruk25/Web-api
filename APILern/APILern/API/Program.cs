@@ -1,5 +1,11 @@
 using System.Security.Claims;
 using System.Text;
+using APILern.Application.DTO;
+using APILern.Application.DTO.AccountUser;
+using APILern.Application.DTO.AccountUser.Validators;
+using APILern.Application.DTO.Product.Validators;
+using APILern.Application.DTO.ProductCategory.Validators;
+using APILern.Application.DTO.Provider.Validators;
 using APILern.Application.Interfaces;
 using APILern.Application.Service;
 using APILern.Application.Service.Inventory;
@@ -7,10 +13,12 @@ using APILern.Application.Services;
 using APILern.Domain.Interface;
 using APILern.Infrastructure.Persistance.Context;
 using APILern.Infrastructure.Persistance.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +42,14 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
+builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+builder.Services.AddScoped<IValidator<AddProductDto>, AddProductDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateProductDto>, UpdateProductDtoValidator>();
+builder.Services.AddScoped<IValidator<AddProductCategoryDto>, AddProductCategoryDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateProviderDto>, CreateProviderDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateProviderDto>, UpdateProviderDtoValidator>();
+builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddCors(option =>
 {
     option.AddPolicy("AllowNextJs", policy =>
