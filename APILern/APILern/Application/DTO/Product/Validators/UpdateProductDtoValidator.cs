@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 
 namespace APILern.Application.DTO.Product.Validators
 {
-    public class AddProductDtoValidator : AbstractValidator<AddProductDto>
+    public class UpdateProductDtoValidator : AbstractValidator<UpdateProductDto>
     {
-        public AddProductDtoValidator()
+        public UpdateProductDtoValidator()
         {
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Название товара обязательно")
@@ -31,8 +30,6 @@ namespace APILern.Application.DTO.Product.Validators
                 .GreaterThan(0).WithMessage("Количество должно быть больше 0")
                 .LessThanOrEqualTo(1000)
                 .WithMessage("Количество не должно превышать 1000");
-            RuleFor(x => x.ProviderId)
-                .NotNull().WithMessage("Поставщик обязателен");
             RuleFor(x => x.CategoryId)
                 .NotNull().WithMessage("Категория обязательна");
         }
