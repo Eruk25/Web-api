@@ -4,8 +4,7 @@ using APILern.Application.Service.Sort;
 
 public interface IProductService
 {
-    Task<PagedResult<ProductResponseDto>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams);
-    Task<IEnumerable<ProductResponseDto?>> SearchProductsAsync(ProductSearchCriteria productSearch);
+    Task<PagedResult<ProductResponseDto>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams, ProductSearchCriteria productSearch);
     Task<ProductResponseDto?> GetByIdAsync(int id);
     Task<int> AddAsync(AddProductDto dto);
     Task<bool> DeleteAsync(int id);

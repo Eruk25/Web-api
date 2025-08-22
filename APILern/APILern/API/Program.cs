@@ -34,7 +34,17 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<JwtService>();
-builder.Services.AddCors();
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy("AllowNextJs", policy =>
+    {
+        policy
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+    });
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -85,7 +95,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(builder => builder.AllowAnyOrigin());
+app.UseCors("AllowNextJs");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

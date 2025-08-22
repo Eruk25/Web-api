@@ -17,8 +17,6 @@ export default async function Home() {
   return (
     <main className="bg-[#6975DE]">
       <Header/>
-      <FilterAndSortSection categoryTitles={categoryTitles} providerNames={providerNames}/>
-      <CategorySection categories={categories}/>
       <ProductSection/>
       <Footer/>
     </main>

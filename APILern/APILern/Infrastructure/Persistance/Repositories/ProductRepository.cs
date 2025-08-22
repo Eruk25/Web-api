@@ -17,22 +17,14 @@ public class ProductRepository : IProductRepository
         _dbContext = dbContext;
     }
 
-    public async Task<PagedResult<Product>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams)
-    {
-        return await _dbContext.Products
-        .Include(p => p.Provider)
-        .Include(p => p.ProductCategory)
-        .Sort(productSort)
-        .ToPagedAsync(pageParams);
-    }
-
-    public async Task<IEnumerable<Product?>> GetProductByParamsIdAsync(ProductSearchCriteria productSearch)
+    public async Task<PagedResult<Product>?> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams, ProductSearchCriteria productSearch)
     {
         return await _dbContext.Products
         .Include(p => p.Provider)
         .Include(p => p.ProductCategory)
         .Filter(productSearch)
-        .ToListAsync();
+        .Sort(productSort)
+        .ToPagedAsync(pageParams);
     }
     public async Task<Product?> GetByIdAsync(int id)
     {

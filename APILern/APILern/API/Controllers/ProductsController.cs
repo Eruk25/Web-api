@@ -19,9 +19,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync([FromQuery] ProductSortCriteria productSort, [FromQuery] PageParams pageParams)
+    public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync([FromQuery] ProductSearchCriteria productSearch, [FromQuery] ProductSortCriteria productSort, [FromQuery] PageParams pageParams)
     {
-        var products = await _productService.GetAllAsync(productSort, pageParams);
+        var products = await _productService.GetAllAsync(productSort, pageParams, productSearch);
         return Ok(products);
     }
 
@@ -30,12 +30,6 @@ public class ProductsController : ControllerBase
     {
         var product = await _productService.GetByIdAsync(id);
         return product is null ? NotFound() : Ok(product);
-    }
-    [HttpPost("search")]
-    public async Task<ActionResult<IEnumerable<Product>>> SearchProductAsync([FromBody] ProductSearchCriteria productSearch)
-    {
-        var product = await _productService.SearchProductsAsync(productSearch);
-        return Ok(product);
     }
 
     [HttpPost]

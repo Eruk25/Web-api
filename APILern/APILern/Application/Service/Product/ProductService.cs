@@ -14,9 +14,9 @@ public class ProductService : IProductService
     {
         _repository = repository;
     }
-    public async Task<PagedResult<ProductResponseDto>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams)
+    public async Task<PagedResult<ProductResponseDto>> GetAllAsync(ProductSortCriteria productSort, PageParams pageParams, ProductSearchCriteria productSearch)
     {
-        var pagedResult = await _repository.GetAllAsync(productSort, pageParams);
+        var pagedResult = await _repository.GetAllAsync(productSort, pageParams, productSearch);
 
         var dtoItems = pagedResult.Items.Select(p => new ProductResponseDto
         {
@@ -30,20 +30,6 @@ public class ProductService : IProductService
         }).ToList();
 
         return new PagedResult<ProductResponseDto>(dtoItems, pagedResult.TotalCount);
-    }
-    public async Task<IEnumerable<ProductResponseDto?>> SearchProductsAsync(ProductSearchCriteria productSearch)
-    {
-        var products = await _repository.GetProductByParamsIdAsync(productSearch);
-        return products.Select(p => new ProductResponseDto
-        {
-            Id = p!.Id,
-            Title = p!.Title,
-            Description = p.Description,
-            Quantity = p.Quantity,
-            Price = p.Price,
-            ProviderName = p.Provider?.Name ?? "-",
-            Category = p.ProductCategory?.Title ?? "Без категории"
-        }).ToList();
     }
     public async Task<ProductResponseDto?> GetByIdAsync(int id)
     {

@@ -1,35 +1,43 @@
 "use client";
-import { Product } from "@/app/types";
+import { Category, Product } from "@/app/types";
 import { ProductCard } from "../products/ProductCard";
 import { useEffect, useState } from "react";
-import { Pagination } from "../pagination/Pagination";
+import { ProductList } from "../products/ProductList";
+import { FilterAndSortSection } from "./FilterAndSortSection";
+import { CategorySection } from "./CategorySection";
+import { fetchCategories } from "@/services/categories";
 
 export function ProductSection(){
-    const [currentPage, setCurrentPage] = useState(1);
-    const [products, setProducts] = useState<Product[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 6;
-
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [filters, setFilters] = useState<{
+        category?: string;
+        provider?: string;
+        priceRange?: [number, number];
+        sort?: string;
+    }>({});
     useEffect(() => {
-        fetch(`http://localhost:5270/Products?page=${currentPage}&pageSize=${pageSize}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setProducts(data.items)
-                setTotalPages(Math.ceil(data.totalCount / pageSize))
-            });
-    }, [currentPage]);
+        const loadCategories = async () => {
+            const data = await fetchCategories();
+            const categoriesSet = [...new Set(data.map((category) => category))]; 
+            setCategories(categoriesSet);
+        }
+        loadCategories();
+    }, []) 
     return(
         <section className="bg-white m-4 rounded-xl">
-            <h2 className="text-center mb-4 bg-gradient-to-r from-[#667EEA] to-[#764BA2] bg-clip-text text-transparent font-bold m-4">Популярные товары</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
-                {products.map((product) =>(
-                <ProductCard key={product.id} product={product}/>
-            ))}
+            <div>
+                <FilterAndSortSection onFiltersChange={(newFilters) => 
+                    setFilters((prev) => ({...prev, ...newFilters}))
+                }/>
             </div>
-            <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}/>
+            <div>
+                <CategorySection onFiltersChange={(newFilters) => 
+                    setFilters((prev) => ({...prev, ...newFilters}))
+                } categories={categories}/>
+            </div>
+            <div>
+                <ProductList filters={filters}/>
+            </div>
         </section>
     );
 };
