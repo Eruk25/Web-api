@@ -8,11 +8,8 @@ namespace APILern.Application.DTO
 {
     public class CreateProviderDto
     {
-        [Required]
         public required string Name { get; set; }
-        [Required]
         public required string Email { get; set; }
-        [Required]
         public required string NumberPhone { get; set; }
     }
 }

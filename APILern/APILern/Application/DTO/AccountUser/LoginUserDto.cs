@@ -8,9 +8,7 @@ namespace APILern.Application.DTO.AccountUser
 {
     public class LoginUserDto
     {
-        [Required]
         public required string UserName { get; set; }
-        [Required]
         public required string Password { get; set; }
     }
 }

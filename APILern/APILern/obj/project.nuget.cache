@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HeEJ0xjt9wg=",
+  "dgSpecHash": "ABUGJvDRy14=",
   "success": true,
   "projectFilePath": "C:\\Users\\legen\\OneDrive\\Рабочий стол\\Code\\Web-api\\APILern\\APILern\\APILern.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\legen\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\legen\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\legen\\.nuget\\packages\\entityframework\\6.5.0\\entityframework.6.5.0.nupkg.sha512",
+    "C:\\Users\\legen\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
     "C:\\Users\\legen\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\legen\\.nuget\\packages\\linqkit\\1.3.8\\linqkit.1.3.8.nupkg.sha512",
     "C:\\Users\\legen\\.nuget\\packages\\linqkit.core\\1.2.8\\linqkit.core.1.2.8.nupkg.sha512",
