@@ -19,7 +19,7 @@ namespace APILern.Application.DTO.AccountUser.Validators
                 .MinimumLength(2).WithMessage("Минимум 2 символа")
                 .MaximumLength(20).WithMessage("Максимум 20 символов");
             RuleFor(x => x.UserName)
-                .NotEmpty().WithMessage("Имя пользователя обязяательно")
+                .NotEmpty().WithMessage("Имя пользователя обязательно")
                 .MinimumLength(2).WithMessage("Минимум 2 символа")
                 .MaximumLength(20).WithMessage("Максимум 20 символов");
             RuleFor(x => x.NumberPhone)
@@ -28,7 +28,7 @@ namespace APILern.Application.DTO.AccountUser.Validators
                 .WithMessage("Неверный формат номера. Пример: +375 (29) 123-45-67");
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email обязателен")
-                .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+                .EmailAddress()
                 .WithMessage("Неверный формат email");
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Пароль обязателен")
