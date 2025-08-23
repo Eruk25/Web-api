@@ -18,7 +18,7 @@ public class ProvidersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Provider>>> GetProvidersAsync()
+    public async Task<ActionResult<IEnumerable<ProviderResponseDto>>> GetProvidersAsync()
     {
         var providers = await _providerService.GetAllAsync();
         return Ok(providers);
@@ -26,7 +26,7 @@ public class ProvidersController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("{id}", Name = "GetProviderByIdAsync")]
-    public async Task<ActionResult<Provider>> GetProviderByIdAsync(int id)
+    public async Task<ActionResult<ProviderResponseDto>> GetProviderByIdAsync(int id)
     {
         var provider = await _providerService.GetByIdAsync(id);
 
