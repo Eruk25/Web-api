@@ -24,6 +24,7 @@ public class ProvidersController : ControllerBase
         return Ok(providers);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id}", Name = "GetProviderByIdAsync")]
     public async Task<ActionResult<Provider>> GetProviderByIdAsync(int id)
     {
@@ -31,6 +32,8 @@ public class ProvidersController : ControllerBase
 
         return provider is null ? NotFound() : Ok(provider);
     }
+
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult> AddProviderAsync([FromBody] CreateProviderDto dto)
     {
@@ -38,6 +41,7 @@ public class ProvidersController : ControllerBase
         return CreatedAtRoute("GetProviderByIdAsync", new { id = createId }, new { id = createId });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateProviderAsync(int id, [FromBody] UpdateProviderDto dto)
     {
@@ -46,6 +50,7 @@ public class ProvidersController : ControllerBase
         return success ? Ok() : NotFound();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProviderAsync(int id)
     {
