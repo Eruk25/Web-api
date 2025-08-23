@@ -16,8 +16,8 @@ namespace APILern.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet("{id}")]
         [Authorize(Roles = "Client")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile(int id)
         {
             var userProfile = await _userService.GetUserProfileAsync(id);
