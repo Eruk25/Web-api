@@ -1,5 +1,6 @@
 using APILern.Application.DTO.Order;
 using APILern.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APILern.Controller;
@@ -15,6 +16,7 @@ public class OrdersController : ControllerBase
         _orderService = orderService;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<OrderResponseDto>> CreateOrderAsync([FromQuery] int CartId)
     {
@@ -23,6 +25,7 @@ public class OrdersController : ControllerBase
         return order is null ? BadRequest() : Ok(order);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<OrderResponseDto>> GetOrderByIdAsync(int id)
     {
@@ -30,6 +33,7 @@ public class OrdersController : ControllerBase
         return order is null ? NotFound() : Ok(order);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteOrderAsync(int id)
     {
