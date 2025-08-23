@@ -3,6 +3,7 @@ using APILern.Application.Service.Pagination;
 using APILern.Application.Service.Sort;
 using APILern.Domain.Entities;
 using APILern.Domain.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APILern.Controller;
@@ -32,6 +33,7 @@ public class ProductsController : ControllerBase
         return product is null ? NotFound() : Ok(product);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult> AddProductAsync([FromBody] AddProductDto productDto)
     {
@@ -40,6 +42,7 @@ public class ProductsController : ControllerBase
         return CreatedAtRoute(routeName: "GetProductById", routeValues: new { id = createId }, new { id = createId });
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<ProductResponseDto>> UpdateProductAsync(int id, [FromBody] UpdateProductDto product)
     {
@@ -47,6 +50,7 @@ public class ProductsController : ControllerBase
         return updated is null ? NotFound() : Ok(updated);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProductAsync(int id)
     {
