@@ -1,5 +1,6 @@
 using APILern.Application.DTO;
 using APILern.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APILern.API.Controllers
@@ -21,7 +22,7 @@ namespace APILern.API.Controllers
 
             return Ok(categories);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}", Name = "GetByIdAsync")]
         public async Task<ActionResult<ProductCategoryResponseDto>> GetByIdAsync(int id)
         {
@@ -29,7 +30,7 @@ namespace APILern.API.Controllers
 
             return category is null ? NotFound() : Ok(category);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ProductCategoryResponseDto>> AddAsync([FromBody] AddProductCategoryDto categoryDto)
         {
